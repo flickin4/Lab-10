@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 int toArgv(char *source, char *dest[], int size) {
@@ -31,14 +32,14 @@ int main(int argc, char *argv[]) {
     printf("\n%s", tempArr[4]);
     printf("\n%s", tempArr[5]);
 
-		for(int i = 0; i < retval; i++) {			
-    	int id = fork();
-			if(id) {
-				wait();
-			} else {
-				execvp(tempArr[i]);
-			}
-		}
+    // for (int i = 0; i < retval; i++) {
+    int id = fork();
+    if (id) {
+      wait(NULL); //???
+    } else {
+      execvp("ls", tempArr); //???
+    }
+    // }
   }
   // for each command line argument in argv
   //   Call toArgv() to break it into an array of tokens named tempArr.
